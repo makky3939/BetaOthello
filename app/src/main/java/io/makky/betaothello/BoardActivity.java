@@ -4,22 +4,12 @@ import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Map;
+
 public class BoardActivity extends AppCompatActivity implements View.OnClickListener {
-
-    Boolean turn = false;
-
-    int[][] boardState = {
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 1, 2, 0, 0, 0},
-            {0, 0, 0, 2, 1, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0}
-    };
 
     int[][] buttonIds = {
             {R.id.button0_0, R.id.button0_1, R.id.button0_2, R.id.button0_3, R.id.button0_4, R.id.button0_5, R.id.button0_6, R.id.button0_7},
@@ -32,13 +22,15 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
             {R.id.button7_0, R.id.button7_1, R.id.button7_2, R.id.button7_3, R.id.button7_4, R.id.button7_5, R.id.button7_6, R.id.button7_7}
     };
 
+    GameBoard gameBoard = new GameBoard();
+
+    GameAi gameAi = new GameAi();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-
-        boardRender();
-
 
         for (int[] buttonRow : buttonIds) {
             for (int buttonId : buttonRow) {
@@ -46,24 +38,35 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
+        boardRender();
     }
 
     @Override
     public void onClick(View v) {
-        if (v != null) {
-            int vid = v.getId();
-            for (int i = 0; i<buttonIds.length; i++) {
-                for (int j = 0; j<buttonIds[i].length; j++) {
-                    if (buttonIds[i][j] == vid) {
-                        if (boardState[i][j] == 0) {
-                            if (turn) {
-                                boardState[i][j] = 1;
-                            } else {
-                                boardState[i][j] = 2;
-                            }
-                            turn = !turn;
+        if (v == null) {
+            return;
+        }
+
+        int viewId = v.getId();
+
+        for (int i = 0; i < buttonIds.length; i++) {
+            for (int j = 0; j < buttonIds[i].length; j++) {
+                if (buttonIds[i][j] == viewId) {
+                    if (gameBoard.isSelectableCell(i, j)) {
+
+                        try {
+                            gameBoard.selectCell(i, j);
                             boardRender();
+                            Thread.sleep(600);
+                            int[] ai = gameAi.primitive(gameBoard.getBoard());
+                            gameBoard.selectCell(ai[0], ai[1]);
+                            boardRender();
+                        }catch(InterruptedException e){
                         }
+
+
+                    } else {
+                        Toast.makeText(this, String.valueOf(i) + "," + String.valueOf(j), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -71,15 +74,48 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void boardRender() {
-        for (int i=0; i<boardState.length; i++) {
-            for (int j=0; j<boardState[i].length; j++) {
+        int boardState[][] = gameBoard.getBoard();
+        int gameStep = gameBoard.getStep();
+
+        Map<String, Integer> cellsStat = gameBoard.countCellsStat();
+
+        boolean turn = gameBoard.getTurn();
+
+        TextView blackCellStatus = (TextView)findViewById(R.id.boardStatusBlack);
+        blackCellStatus.setText("Black:" + String.valueOf(cellsStat.get("BLACK")));
+
+        TextView whiteCellStatus = (TextView)findViewById(R.id.boardStatusWhite);
+        whiteCellStatus.setText("White:" + String.valueOf(cellsStat.get("WHITE")));
+
+        TextView freeCellStatus = (TextView)findViewById(R.id.boardStatusFree);
+        freeCellStatus.setText("Free:" + String.valueOf(cellsStat.get("FREE")));
+
+        TextView stepStatus = (TextView)findViewById(R.id.boardStatusStep);
+        stepStatus.setText(String.valueOf("Step:" + gameStep));
+
+        blackCellStatus.setBackgroundColor(0xffffffff);
+        whiteCellStatus.setBackgroundColor(0xffffffff);
+
+        if (turn) {
+            blackCellStatus.setBackgroundColor(0xff00ffff);
+        } else {
+            whiteCellStatus.setBackgroundColor(0xff00ffff);
+        }
+
+        for (int i = 0; i < boardState.length; i++) {
+            for (int j = 0; j < boardState[i].length; j++) {
                 if (boardState[i][j] == 1) {
-                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xff000000, PorterDuff.Mode.MULTIPLY);
-                } else if (boardState[i][j] == 2) {
                     findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xffffffff, PorterDuff.Mode.MULTIPLY);
+                } else if (boardState[i][j] == 2) {
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xff000000, PorterDuff.Mode.MULTIPLY);
+                } else if (boardState[i][j] == 3) {
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xff00ffff, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xffcccccc, PorterDuff.Mode.MULTIPLY);
                 }
             }
         }
     }
-
 }
+
+

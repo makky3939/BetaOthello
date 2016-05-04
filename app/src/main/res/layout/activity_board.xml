@@ -9,181 +9,216 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.makky.betaothello.BoardActivity">
 
-    <TableLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:shrinkColumns="0,1,2,3,4,5,6,7,8">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/boardStatusStep"
+            />
 
-            <Button android:id="@+id/button0_0" />
-
-            <Button android:id="@+id/button0_1" />
-
-            <Button android:id="@+id/button0_2" />
-
-            <Button android:id="@+id/button0_3" />
-
-            <Button android:id="@+id/button0_4" />
-
-            <Button android:id="@+id/button0_5" />
-
-            <Button android:id="@+id/button0_6" />
-
-            <Button android:id="@+id/button0_7" />
-
-        </TableRow>
-
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/boardStatusFree"
+            />
 
-            <Button android:id="@+id/button1_0" />
-
-            <Button android:id="@+id/button1_1" />
-
-            <Button android:id="@+id/button1_2" />
-
-            <Button android:id="@+id/button1_3" />
-
-            <Button android:id="@+id/button1_4" />
-
-            <Button android:id="@+id/button1_5" />
-
-            <Button android:id="@+id/button1_6" />
-
-            <Button android:id="@+id/button1_7" />
-        </TableRow>
-
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/boardStatusBlack"
+            />
 
-            <Button android:id="@+id/button2_0" />
-
-            <Button android:id="@+id/button2_1" />
-
-            <Button android:id="@+id/button2_2" />
-
-            <Button android:id="@+id/button2_3" />
-
-            <Button android:id="@+id/button2_4" />
-
-            <Button android:id="@+id/button2_5" />
-
-            <Button android:id="@+id/button2_6" />
-
-            <Button android:id="@+id/button2_7" />
-        </TableRow>
-
-        <TableRow
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/boardStatusWhite"
+            />
 
-            <Button android:id="@+id/button3_0" />
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0,1,2,3,4,5,6,7,8"
+            android:id="@+id/tableLayout">
 
-            <Button android:id="@+id/button3_1" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button android:id="@+id/button3_2" />
+                <Button android:id="@+id/button0_0" />
 
-            <Button android:id="@+id/button3_3" />
+                <Button android:id="@+id/button0_1" />
 
-            <Button android:id="@+id/button3_4" />
+                <Button android:id="@+id/button0_2" />
 
-            <Button android:id="@+id/button3_5" />
+                <Button android:id="@+id/button0_3" />
 
-            <Button android:id="@+id/button3_6" />
+                <Button android:id="@+id/button0_4" />
 
-            <Button android:id="@+id/button3_7" />
-        </TableRow>
+                <Button android:id="@+id/button0_5" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <Button android:id="@+id/button0_6" />
 
-            <Button android:id="@+id/button4_0" />
+                <Button android:id="@+id/button0_7" />
 
-            <Button android:id="@+id/button4_1" />
+            </TableRow>
 
-            <Button android:id="@+id/button4_2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button android:id="@+id/button4_3" />
+                <Button android:id="@+id/button1_0" />
 
-            <Button android:id="@+id/button4_4" />
+                <Button android:id="@+id/button1_1" />
 
-            <Button android:id="@+id/button4_5" />
+                <Button android:id="@+id/button1_2" />
 
-            <Button android:id="@+id/button4_6" />
+                <Button android:id="@+id/button1_3" />
 
-            <Button android:id="@+id/button4_7" />
-        </TableRow>
+                <Button android:id="@+id/button1_4" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <Button android:id="@+id/button1_5" />
 
-            <Button android:id="@+id/button5_0" />
+                <Button android:id="@+id/button1_6" />
 
-            <Button android:id="@+id/button5_1" />
+                <Button android:id="@+id/button1_7" />
+            </TableRow>
 
-            <Button android:id="@+id/button5_2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button android:id="@+id/button5_3" />
+                <Button android:id="@+id/button2_0" />
 
-            <Button android:id="@+id/button5_4" />
+                <Button android:id="@+id/button2_1" />
 
-            <Button android:id="@+id/button5_5" />
+                <Button android:id="@+id/button2_2" />
 
-            <Button android:id="@+id/button5_6" />
+                <Button android:id="@+id/button2_3" />
 
-            <Button android:id="@+id/button5_7" />
-        </TableRow>
+                <Button android:id="@+id/button2_4" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <Button android:id="@+id/button2_5" />
 
-            <Button android:id="@+id/button6_0" />
+                <Button android:id="@+id/button2_6" />
 
-            <Button android:id="@+id/button6_1" />
+                <Button android:id="@+id/button2_7" />
+            </TableRow>
 
-            <Button android:id="@+id/button6_2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button android:id="@+id/button6_3" />
+                <Button android:id="@+id/button3_0" />
 
-            <Button android:id="@+id/button6_4" />
+                <Button android:id="@+id/button3_1" />
 
-            <Button android:id="@+id/button6_5" />
+                <Button android:id="@+id/button3_2" />
 
-            <Button android:id="@+id/button6_6" />
+                <Button android:id="@+id/button3_3" />
 
-            <Button android:id="@+id/button6_7" />
-        </TableRow>
+                <Button android:id="@+id/button3_4" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <Button android:id="@+id/button3_5" />
 
-            <Button android:id="@+id/button7_0" />
+                <Button android:id="@+id/button3_6" />
 
-            <Button android:id="@+id/button7_1" />
+                <Button android:id="@+id/button3_7" />
+            </TableRow>
 
-            <Button android:id="@+id/button7_2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button android:id="@+id/button7_3" />
+                <Button android:id="@+id/button4_0" />
 
-            <Button android:id="@+id/button7_4" />
+                <Button android:id="@+id/button4_1" />
 
-            <Button android:id="@+id/button7_5" />
+                <Button android:id="@+id/button4_2" />
 
-            <Button android:id="@+id/button7_6" />
+                <Button android:id="@+id/button4_3" />
 
-            <Button android:id="@+id/button7_7" />
-        </TableRow>
+                <Button android:id="@+id/button4_4" />
 
-    </TableLayout>
+                <Button android:id="@+id/button4_5" />
+
+                <Button android:id="@+id/button4_6" />
+
+                <Button android:id="@+id/button4_7" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button android:id="@+id/button5_0" />
+
+                <Button android:id="@+id/button5_1" />
+
+                <Button android:id="@+id/button5_2" />
+
+                <Button android:id="@+id/button5_3" />
+
+                <Button android:id="@+id/button5_4" />
+
+                <Button android:id="@+id/button5_5" />
+
+                <Button android:id="@+id/button5_6" />
+
+                <Button android:id="@+id/button5_7" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button android:id="@+id/button6_0" />
+
+                <Button android:id="@+id/button6_1" />
+
+                <Button android:id="@+id/button6_2" />
+
+                <Button android:id="@+id/button6_3" />
+
+                <Button android:id="@+id/button6_4" />
+
+                <Button android:id="@+id/button6_5" />
+
+                <Button android:id="@+id/button6_6" />
+
+                <Button android:id="@+id/button6_7" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button android:id="@+id/button7_0" />
+
+                <Button android:id="@+id/button7_1" />
+
+                <Button android:id="@+id/button7_2" />
+
+                <Button android:id="@+id/button7_3" />
+
+                <Button android:id="@+id/button7_4" />
+
+                <Button android:id="@+id/button7_5" />
+
+                <Button android:id="@+id/button7_6" />
+
+                <Button android:id="@+id/button7_7" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+
 </RelativeLayout>

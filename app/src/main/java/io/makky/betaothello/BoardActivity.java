@@ -2,6 +2,8 @@ package io.makky.betaothello;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,8 +49,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
         blackSide = intent.getIntExtra("BLACK", 0);
         whiteSide = intent.getIntExtra("WHITE", 0);
 
-//        Toast.makeText(this, String.valueOf(intent.getIntExtra("BLACK", 0)) + "," + String.valueOf(intent.getIntExtra("WHITE", 0)), Toast.LENGTH_SHORT).show();
-
         boardRender();
     }
 
@@ -64,19 +64,20 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
             for (int j = 0; j < buttonIds[i].length; j++) {
                 if (buttonIds[i][j] == viewId) {
                     if (gameBoard.isSelectableCell(i, j)) {
-
-//                        try {
+                        
                             gameBoard.selectCell(i, j);
                             boardRender();
-//                            Thread.sleep(600);
+
                         if (whiteSide == 1) {
                             int[] ai = gameAi.primitive(gameBoard.getBoard());
-                            gameBoard.selectCell(ai[0], ai[1]);
+                            if (ai[0] == 8 && ai[1] == 8) {
+                                gameBoard.pass();
+                            } else {
+                                gameBoard.selectCell(ai[0], ai[1]);
+                            }
+
                             boardRender();
                         }
-//                        }catch(InterruptedException e){
-//                        }
-//
 
                     } else {
                         Toast.makeText(this, String.valueOf(i) + "," + String.valueOf(j), Toast.LENGTH_SHORT).show();
@@ -131,6 +132,17 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }
+
+        switch (gameBoard.completionJudge()) {
+            case 1:
+            case 2:
+                resultModal();
+                break;
+            case 3:
+                passModal();
+                break;
+        }
+
     }
 
     private String getControllerName(int i) {
@@ -141,6 +153,41 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 return "Primitive AI";
         }
         return "";
+    }
+
+    public void resultModal() {
+        new AlertDialog.Builder(this)
+                .setTitle("Result")
+                .setMessage((gameBoard.completionJudge() == 1) ? "White win" : "Black win")
+                .setPositiveButton("Back to Menu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(BoardActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .show();
+
+    }
+
+    public void passModal() {
+        new AlertDialog.Builder(this)
+                .setTitle("There is no choice")
+                .setMessage("Are you sure that you want to pass")
+                .setPositiveButton("Pass", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameBoard.pass();
+                        boardRender();
+                    }
+                })
+                .setNegativeButton("Retire", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        resultModal();
+                    }
+                })
+                .show();
     }
 }
 

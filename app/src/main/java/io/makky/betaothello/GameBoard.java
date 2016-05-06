@@ -27,6 +27,75 @@ public class GameBoard {
 
     public int getStep() {return step; }
 
+    public int completionJudge() {
+        int judge = 0;
+        int black = 0;
+        int white = 0;
+
+        int current_selectable = 0;
+        int next_selectable = 0;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 1) {
+                    white += 1;
+                }
+
+                if (board[i][j] == 2) {
+                    black += 1;
+                }
+
+                if (board[i][j] == 3) {
+                    current_selectable += 1;
+                }
+            }
+        }
+
+        this.pass();
+        this.getBoard();
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 3) {
+                    next_selectable+= 1;
+                }
+            }
+        }
+
+        this.pass();
+        this.getBoard();
+
+        if ((white + black) == 64 || (current_selectable == 0 && next_selectable == 0)) {
+            if (white > black) {
+                judge = 1;
+            } else {
+                judge = 2;
+            }
+        } else {
+            judge = 0;
+        }
+
+        if (white == 0) {
+            judge = 2;
+        }
+
+        if (black == 0) {
+            judge = 1;
+        }
+
+        if (current_selectable == 0 && next_selectable != 0) {
+            judge = 3;
+        }
+
+
+
+        // 0: none
+        // 1: white
+        // 2: black
+        // 3: pass
+        return judge;
+    }
+
     public int[][] getBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -81,6 +150,10 @@ public class GameBoard {
         step += 1;
     }
 
+    public void pass() {
+        turn = !turn;
+    }
+
     public boolean isSelectableCell(int i, int j) {
         return board[i][j] == 3;
     }
@@ -111,7 +184,7 @@ public class GameBoard {
         x += dx;
         y += dy;
 
-        if (x <= 0 || x > 7 || y <= 0 || y > 7) {
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
             return 0;
         }
 
@@ -120,7 +193,7 @@ public class GameBoard {
             return 0;
         }
 
-        while (x >= 0 && x < 8 && y >= 0 && y < 8) {
+        while (!(x < 0 || x > 7 || y < 0 || y > 7)) {
             if (this.board[y][x] == 0 || this.board[y][x] == 3) {
                 return 0;
             }

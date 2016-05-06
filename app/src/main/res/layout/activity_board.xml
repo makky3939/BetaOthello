@@ -17,41 +17,86 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/boardStatusStep"
-            />
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/boardStatusFree"
-            />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/boardStatusBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="40dp"
+                    android:textColor="#f5f3f3"
+                    android:enabled="false"
+                    android:clickable = "false"/>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/boardStatusBlack"
-            />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/boardStatusStep"
+                    android:text="Step"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/boardStatusWhite"
-            />
+                <TextView
+                    android:id="@+id/boardStatusTurn"
+                    android:text="turn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/boardStatusFree"
+                    android:text="free"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/boardStatusWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="40dp"
+                    android:textColor="#3c3c3c"
+                    android:clickable = "false"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
 
         <TableLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:shrinkColumns="0,1,2,3,4,5,6,7,8"
+            android:shrinkColumns="0,1,2,3,4,5,6,7"
             android:id="@+id/tableLayout">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button android:id="@+id/button0_0" />
+                <Button android:id="@+id/button0_0"/>
 
                 <Button android:id="@+id/button0_1" />
 

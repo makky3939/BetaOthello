@@ -1,5 +1,6 @@
 package io.makky.betaothello;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
 
     GameAi gameAi = new GameAi();
 
+    int blackSide = 0;
+    int whiteSide = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,13 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 findViewById(buttonId).setOnClickListener(this);
             }
         }
+
+        Intent intent = getIntent();
+
+        blackSide = intent.getIntExtra("BLACK", 0);
+        whiteSide = intent.getIntExtra("WHITE", 0);
+
+//        Toast.makeText(this, String.valueOf(intent.getIntExtra("BLACK", 0)) + "," + String.valueOf(intent.getIntExtra("WHITE", 0)), Toast.LENGTH_SHORT).show();
 
         boardRender();
     }
@@ -58,9 +69,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                             gameBoard.selectCell(i, j);
                             boardRender();
 //                            Thread.sleep(600);
+                        if (whiteSide == 1) {
                             int[] ai = gameAi.primitive(gameBoard.getBoard());
                             gameBoard.selectCell(ai[0], ai[1]);
                             boardRender();
+                        }
 //                        }catch(InterruptedException e){
 //                        }
 //
@@ -96,22 +109,38 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
         TextView turnStatus = (TextView)findViewById(R.id.boardStatusTurn);
         turnStatus.setText((turn ? "<" : ">"));
 
-        blackCellStatus.getBackground().setColorFilter(0xff000000, PorterDuff.Mode.MULTIPLY);
-        whiteCellStatus.getBackground().setColorFilter(0xffffffff, PorterDuff.Mode.MULTIPLY);
+        blackCellStatus.getBackground().setColorFilter(getResources().getColor(R.color.colorCellBlack), PorterDuff.Mode.MULTIPLY);
+        whiteCellStatus.getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
+
+        TextView boardStatusBlackSide = (TextView)findViewById(R.id.boardStatusBlackSide);
+        TextView boardStatusWhiteSide = (TextView)findViewById(R.id.boardStatusWhiteSide);
+
+        boardStatusBlackSide.setText(getControllerName(blackSide));
+        boardStatusWhiteSide.setText(getControllerName(whiteSide));
 
         for (int i = 0; i < boardState.length; i++) {
             for (int j = 0; j < boardState[i].length; j++) {
                 if (boardState[i][j] == 1) {
-                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xffffffff, PorterDuff.Mode.MULTIPLY);
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
                 } else if (boardState[i][j] == 2) {
-                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xff000000, PorterDuff.Mode.MULTIPLY);
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(getResources().getColor(R.color.colorCellBlack), PorterDuff.Mode.MULTIPLY);
                 } else if (boardState[i][j] == 3) {
-                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xff3F51B5, PorterDuff.Mode.MULTIPLY);
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(getResources().getColor(R.color.colorCellSelectable), PorterDuff.Mode.MULTIPLY);
                 } else {
-                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(0xffcccccc, PorterDuff.Mode.MULTIPLY);
+                    findViewById(buttonIds[i][j]).getBackground().setColorFilter(getResources().getColor(R.color.colorCellFree), PorterDuff.Mode.MULTIPLY);
                 }
             }
         }
+    }
+
+    private String getControllerName(int i) {
+        switch (i) {
+            case 0:
+                return "Player";
+            case 1:
+                return "Primitive AI";
+        }
+        return "";
     }
 }
 

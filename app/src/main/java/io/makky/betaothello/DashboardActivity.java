@@ -1,27 +1,48 @@
 package io.makky.betaothello;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        Button move2board = (Button) findViewById(R.id.move2board);
+        findViewById(R.id.dashboard_pvp).setOnClickListener(this);
+        findViewById(R.id.dashboard_primitive_ai).setOnClickListener(this);
 
-        move2board.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, BoardActivity.class);
+        findViewById(R.id.dashboard_pvp).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
+        findViewById(R.id.dashboard_primitive_ai).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == null) {
+            return;
+        }
+
+        Intent intent = new Intent(DashboardActivity.this, BoardActivity.class);
+
+        switch (v.getId()) {
+            case R.id.dashboard_pvp:
+                intent.putExtra("BLACK", 0);
+                intent.putExtra("WHITE", 0);
                 startActivity(intent);
-            }
-        });
+                break;
+
+            case R.id.dashboard_primitive_ai:
+                intent.putExtra("BLACK", 0);
+                intent.putExtra("WHITE", 1);
+                startActivity(intent);
+                break;
+        }
     }
 
 }

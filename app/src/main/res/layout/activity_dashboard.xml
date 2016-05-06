@@ -5,24 +5,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="io.makky.betaothello.DashboardActivity">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Move to board"
-        android:id="@+id/move2board"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    tools:context="io.makky.betaothello.DashboardActivity"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dashboard"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="New Game"
+        android:id="@+id/dashboard_new_game"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="vs Player"
+        android:id="@+id/dashboard_vs_p"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/dashboard_new_game"
+        android:layout_marginTop="34dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PvP"
+        android:id="@+id/dashboard_pvp"
+        android:layout_below="@+id/dashboard_vs_p"
+         />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="vs AI"
+        android:id="@+id/dashboard_vs_ai"
+        android:layout_below="@+id/dashboard_pvp"
+        android:layout_marginTop="46dp"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="primitive ai"
+        android:id="@+id/dashboard_primitive_ai"
+        android:layout_below="@+id/dashboard_vs_ai" />
+
 </RelativeLayout>

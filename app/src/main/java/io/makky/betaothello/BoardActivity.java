@@ -79,6 +79,17 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                             boardRender();
                         }
 
+                        if (whiteSide == 2) {
+                            int[] ai = gameAi.random(gameBoard.getBoard());
+                            if (ai[0] == 8 && ai[1] == 8) {
+                                gameBoard.pass();
+                            } else {
+                                gameBoard.selectCell(ai[0], ai[1]);
+                            }
+
+                            boardRender();
+                        }
+
                     } else {
                         Toast.makeText(this, String.valueOf(i) + "," + String.valueOf(j), Toast.LENGTH_SHORT).show();
                     }
@@ -151,8 +162,10 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 return "Player";
             case 1:
                 return "Primitive AI";
+            case 2:
+                return "Random AI";
         }
-        return "";
+        return "Unknown";
     }
 
     public void resultModal() {

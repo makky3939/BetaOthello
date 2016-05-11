@@ -53,4 +53,11 @@
         android:id="@+id/dashboard_primitive_ai"
         android:layout_below="@+id/dashboard_vs_ai" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="random ai"
+        android:id="@+id/dashboard_random_ai"
+        android:layout_below="@+id/dashboard_primitive_ai" />
+
 </RelativeLayout>

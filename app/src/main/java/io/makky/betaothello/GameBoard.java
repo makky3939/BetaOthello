@@ -9,6 +9,12 @@ public class GameBoard {
 
     int[][] board = new int[8][8];
 
+    GameBoard(int[][] board, boolean turn, int step) {
+        this.board = board;
+        this.turn = turn;
+        this.step = step;
+    }
+
     GameBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {

@@ -67,4 +67,11 @@
         android:id="@+id/dashboard_random_weighted_ai"
         android:layout_below="@+id/dashboard_random_ai" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="min max"
+        android:id="@+id/dashboard_minmax_ai"
+        android:layout_below="@+id/dashboard_random_weighted_ai" />
+
 </RelativeLayout>

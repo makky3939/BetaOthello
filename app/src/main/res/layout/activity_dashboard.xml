@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="vs AI"
+        android:text="vs Algorithm"
         android:id="@+id/dashboard_vs_ai"
         android:layout_below="@+id/dashboard_pvp"
         android:layout_marginTop="46dp"
@@ -49,15 +49,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="primitive ai"
+        android:text="primitive"
         android:id="@+id/dashboard_primitive_ai"
         android:layout_below="@+id/dashboard_vs_ai" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="random ai"
+        android:text="random"
         android:id="@+id/dashboard_random_ai"
         android:layout_below="@+id/dashboard_primitive_ai" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="random weighted"
+        android:id="@+id/dashboard_random_weighted_ai"
+        android:layout_below="@+id/dashboard_random_ai" />
 
 </RelativeLayout>

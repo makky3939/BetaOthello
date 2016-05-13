@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,6 +148,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 return "Random";
             case 3:
                 return "Random Weighted";
+            case 4:
+                return "Min max";
         }
         return "Unknown";
     }
@@ -190,6 +193,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void execAi() {
+        Log.v("aaa", getControllerName(whiteSide));
         if (whiteSide == 1) {
             int[] ai = gameAi.primitive(gameBoard.getBoard());
             if (ai[0] == 8 && ai[1] == 8) {
@@ -214,6 +218,17 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
 
         if (whiteSide == 3) {
             int[] ai = gameAi.randomWeighted(gameBoard.getBoard());
+            if (ai[0] == 8 && ai[1] == 8) {
+                gameBoard.pass();
+            } else {
+                gameBoard.selectCell(ai[0], ai[1]);
+            }
+
+            boardRender();
+        }
+
+        if (whiteSide == 4) {
+            int[] ai = gameAi.minMax(gameBoard);
             if (ai[0] == 8 && ai[1] == 8) {
                 gameBoard.pass();
             } else {

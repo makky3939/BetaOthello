@@ -18,11 +18,13 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.dashboard_primitive_ai).setOnClickListener(this);
         findViewById(R.id.dashboard_random_ai).setOnClickListener(this);
         findViewById(R.id.dashboard_random_weighted_ai).setOnClickListener(this);
+        findViewById(R.id.dashboard_minmax_ai).setOnClickListener(this);
 
         findViewById(R.id.dashboard_pvp).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
         findViewById(R.id.dashboard_primitive_ai).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
         findViewById(R.id.dashboard_random_ai).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
         findViewById(R.id.dashboard_random_weighted_ai).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
+        findViewById(R.id.dashboard_minmax_ai).getBackground().setColorFilter(getResources().getColor(R.color.colorCellWhite), PorterDuff.Mode.MULTIPLY);
     }
 
     @Override
@@ -55,6 +57,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             case R.id.dashboard_random_weighted_ai:
                 intent.putExtra("BLACK", 0);
                 intent.putExtra("WHITE", 3);
+                startActivity(intent);
+                break;
+
+            case R.id.dashboard_minmax_ai:
+                intent.putExtra("BLACK", 0);
+                intent.putExtra("WHITE", 4);
                 startActivity(intent);
                 break;
         }

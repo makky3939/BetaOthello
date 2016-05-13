@@ -32,7 +32,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
     int blackSide = 0;
     int whiteSide = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,29 +64,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 if (buttonIds[i][j] == viewId) {
                     if (gameBoard.isSelectableCell(i, j)) {
                         
-                            gameBoard.selectCell(i, j);
-                            boardRender();
+                        gameBoard.selectCell(i, j);
+                        boardRender();
 
-                        if (whiteSide == 1) {
-                            int[] ai = gameAi.primitive(gameBoard.getBoard());
-                            if (ai[0] == 8 && ai[1] == 8) {
-                                gameBoard.pass();
-                            } else {
-                                gameBoard.selectCell(ai[0], ai[1]);
-                            }
-
-                            boardRender();
-                        }
-
-                        if (whiteSide == 2) {
-                            int[] ai = gameAi.random(gameBoard.getBoard());
-                            if (ai[0] == 8 && ai[1] == 8) {
-                                gameBoard.pass();
-                            } else {
-                                gameBoard.selectCell(ai[0], ai[1]);
-                            }
-
-                            boardRender();
+                        if (whiteSide != 0) {
+                            execAi();
                         }
 
                     } else {
@@ -113,7 +94,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
         whiteCellStatus.setText(String.valueOf(cellsStat.get("WHITE")));
 
         TextView freeCellStatus = (TextView)findViewById(R.id.boardStatusFree);
-        freeCellStatus.setText("Free:" + String.valueOf(cellsStat.get("FREE")));
+        freeCellStatus.setText(String.valueOf("Free:" + cellsStat.get("FREE")));
 
         TextView stepStatus = (TextView)findViewById(R.id.boardStatusStep);
         stepStatus.setText(String.valueOf("Step:" + gameStep));
@@ -161,9 +142,11 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
             case 0:
                 return "Player";
             case 1:
-                return "Primitive AI";
+                return "Primitive";
             case 2:
-                return "Random AI";
+                return "Random";
+            case 3:
+                return "Random Weighted";
         }
         return "Unknown";
     }
@@ -191,6 +174,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         gameBoard.pass();
+                        if (whiteSide != 0) {
+                            execAi();
+                        }
                         boardRender();
                     }
                 })
@@ -201,6 +187,41 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                     }
                 })
                 .show();
+    }
+
+    public void execAi() {
+        if (whiteSide == 1) {
+            int[] ai = gameAi.primitive(gameBoard.getBoard());
+            if (ai[0] == 8 && ai[1] == 8) {
+                gameBoard.pass();
+            } else {
+                gameBoard.selectCell(ai[0], ai[1]);
+            }
+
+            boardRender();
+        }
+
+        if (whiteSide == 2) {
+            int[] ai = gameAi.random(gameBoard.getBoard());
+            if (ai[0] == 8 && ai[1] == 8) {
+                gameBoard.pass();
+            } else {
+                gameBoard.selectCell(ai[0], ai[1]);
+            }
+
+            boardRender();
+        }
+
+        if (whiteSide == 3) {
+            int[] ai = gameAi.randomWeighted(gameBoard.getBoard());
+            if (ai[0] == 8 && ai[1] == 8) {
+                gameBoard.pass();
+            } else {
+                gameBoard.selectCell(ai[0], ai[1]);
+            }
+
+            boardRender();
+        }
     }
 }
 
